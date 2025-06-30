@@ -5,6 +5,7 @@
 #include "Unit.h"
 #include "Tower.h"
 #include "Enemy.h"
+#include "Bullet.h"
 
 string int2str(int x){char t[12];sprintf(t,"%d",x); return string(t);}
 
@@ -38,4 +39,9 @@ double dis(QPointF A,QPointF B){
 }
 double dis(Entity* A,Entity* B){
     return dis(A->pos(),B->pos());
+}
+
+
+void Shoot(Scene* parent, string model, QPointF From, QPointF To, int flytime){
+    Bullet* b = new Bullet(parent, model, From, To, flytime);
 }

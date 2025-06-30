@@ -30,6 +30,10 @@ void GameView::put(int i,int j,string type){
         if (scene->gridWho(i,j) != nullptr) return;
         meleeT *mt = new meleeT(scene, i, j);
     }
+    if (type=="rangeT"){
+        if (scene->gridWho(i,j) != nullptr) return;
+        rangeT *mt = new rangeT(scene, i, j);
+    }
 
     // enemy
     if (type=="enemy"){
@@ -61,6 +65,11 @@ void GameView::gameMove(){
         if (mt){
             mt->attack();
         }
+
+        rangeT *rt = dynamic_cast<rangeT*>(t);
+        if (rt){
+            rt->attack();
+        }
     }
 }
 void GameView::mousePressEvent(QMouseEvent* event) {
@@ -69,7 +78,8 @@ void GameView::mousePressEvent(QMouseEvent* event) {
         pii gridpos = scene->whichGrid(pos.x(),pos.y());
         int i = gridpos.first, j = gridpos.second;
         if (i>0 && j>0) {
-            put(i, j, "meleeT");
+            // put(i, j, "meleeT");
+            put(i, j, "rangeT");
         }
     }
 

@@ -53,3 +53,6 @@ double dis(QPointF A,QPointF B);
 double dis(Entity* A,Entity* B);
 
 template<typename T> T fit_in(T a, T l, T r){return min(max(a,l),r);}
+
+class Scene;
+void Shoot(Scene* parent, string model, QPointF From, QPointF To, int flytime);
