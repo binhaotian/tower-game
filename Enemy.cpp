@@ -10,7 +10,13 @@ Enemy::Enemy(Scene* parent, int i, int j): Unit(parent)
 Enemy::~Enemy(){
 
 }
+void Enemy::goDie(){
+    this->deleteLater();
+}
 
+void Enemy::attack(Tower* t){
+    t->decHealth(damage);
+}
 void Enemy::gridMove(){
     char dir = parent->gridInfo(g_i,g_j).dir;
     pii mov = get_didj(dir);
@@ -18,10 +24,15 @@ void Enemy::gridMove(){
     int dy = di*grid_size, dx = dj*grid_size;
     pii nx =  parent->nextGrid(getGridPos()); Entity* who = parent->gridWho(nx.first, nx.second);
     
-    if (dynamic_cast<Tower*>(who)){
-        this -> deleteLater();
+    Tower *t;
+    if (t = dynamic_cast<Tower*>(who)){
+        attack(t);
+    }
+    else if (dynamic_cast<Enemy*>(who)){
+        // 不动
     }
     else{
         g_i+=di; g_j+=dj; moveBy(dx, dy);
+        updateFollows();
     }
 }

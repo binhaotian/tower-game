@@ -55,6 +55,13 @@ void GameView::gameMove(){
         printf("new enemy pos: %d,%d\n",e_pos.first,e_pos.second);
         put(e_pos.first, e_pos.second, "enemy");
     }
+
+    for(auto t:twL){
+        meleeT *mt = dynamic_cast<meleeT*>(t);
+        if (mt){
+            mt->attack();
+        }
+    }
 }
 void GameView::mousePressEvent(QMouseEvent* event) {
     if (event->button() == Qt::LeftButton) {

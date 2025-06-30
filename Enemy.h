@@ -4,11 +4,11 @@
 class Tower;
 class Enemy: public Unit{
     Q_OBJECT
+    int damage = 10;
 public:
     Enemy(Scene* parent, int i, int j);
     ~Enemy();
+    void attack(Tower* t);
     void gridMove();
-signals:
-    void End();
-    void Died();
+    void goDie() override;
 };

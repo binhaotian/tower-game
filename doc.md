@@ -14,8 +14,8 @@ Entity
     -> Unit
         -> Enemy
         -> Tower (我方单位, 近战或远程攻击塔)
-    -> *Follower
-        -> *HealthBar (血条)
+    -> Follower
+        -> HealthBar (血条)
         -> *Prefix (词缀)
     -> *弹幕之类的
 Scene: 包含 Map, 和 Entity 列表

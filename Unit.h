@@ -2,17 +2,26 @@
 #include "Base.h"
 #include "Scene.h"
 #include "Entity.h"
+#include "HealthBar.h"
 
 class Unit: public Entity{
 protected:
     int g_i, g_j; // grid pos
-    int maxHP;
+    int maxHP; 
+    HealthBar* hb;
 public:
     Unit(Scene* parent, int HP=100);
     ~Unit();
 
     void setPic(string pic);
     void setgPos(int i,int j);
+
+    void updateFollows();
+
+    int getHealth();
+    void incHealth(int x);
+    void decHealth(int x);
+    virtual void goDie() {}
     
     pii getGridPos();
     friend bool uMeet(Unit*a, Unit*b);

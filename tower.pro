@@ -13,6 +13,8 @@ SOURCES += \
     Map.cpp\
     Scene.cpp\
     Entity.cpp\
+    Follower.cpp\
+    HealthBar.cpp\
     Unit.cpp\
     Enemy.cpp\
     Tower.cpp\
@@ -24,6 +26,8 @@ HEADERS += \
     Map.h\
     Scene.h\
     Entity.h\
+    Follower.h\
+    HealthBar.h\
     Unit.h\
     Enemy.h\
     Tower.h\
