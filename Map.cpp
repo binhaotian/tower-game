@@ -35,6 +35,8 @@ void Map::Load(string path){
 }
 
 void Map::Draw(){
+    puts("Draw");
+    // parent->addRect(0,0,10,10,QPen(Qt::gray)); // position helper
     int size = grid_size;
     for(int i=1;i<=n;i++){
         for(int j=1;j<=m;j++){

@@ -55,6 +55,21 @@ Bar::Bar(Scene*parent){
 
     Rect* rangeT = new Rect(parent,2*size,0,size,size);
     rangeT -> addPic(":/cannon.png");
+
+    Rect* Violent = new Rect(parent,3*size,0,size,size);
+    Violent -> addText("Violent");
+
+    Rect* Icy = new Rect(parent,4*size,0,size,size);
+    Icy -> addText("Icy");
+
+    Rect* Aoe = new Rect(parent,5*size,0,size,size);
+    Aoe -> addText("Aoe");
+
+    Rect* Bleeding = new Rect(parent,6*size,0,size,size);
+    Bleeding -> addText("Bleeding");
+
+    Rect* Remove = new Rect(parent,7*size,0,size,size);
+    Remove -> addText("Remove");
     
 
     cur = "meleeT";
@@ -64,6 +79,11 @@ Bar::Bar(Scene*parent){
 
     meleeT -> setMousePress([this,meleeT]()->void {this->cur = "meleeT"; picker->setPos(meleeT->rect().left(),meleeT->rect().top()); puts("set to melee");});
     rangeT -> setMousePress([this,rangeT]()->void {this->cur = "rangeT"; picker->setPos(rangeT->rect().left(),rangeT->rect().top()); puts("set to range");});
+    Violent -> setMousePress([this,Violent]()->void {this->cur = "Violent"; picker->setPos(Violent->rect().left(),Violent->rect().top()); puts("set to Violent");});
+    Icy -> setMousePress([this,Icy]()->void {this->cur = "Icy"; picker->setPos(Icy->rect().left(),Icy->rect().top()); puts("set to Icy");});
+    Aoe -> setMousePress([this,Aoe]()->void {this->cur = "Aoe"; picker->setPos(Aoe->rect().left(),Aoe->rect().top()); puts("set to Aoe");});
+    Bleeding -> setMousePress([this,Bleeding]()->void {this->cur = "Bleeding"; picker->setPos(Bleeding->rect().left(),Bleeding->rect().top()); puts("set to Bleeding");});
+    Remove -> setMousePress([this,Remove]()->void {this->cur = "Remove"; picker->setPos(Remove->rect().left(),Remove->rect().top()); puts("set to Remove");});
 }
 int  Bar::getMoney() {return money;}
 void Bar::updateMoney() {moneyR->updateText(int2str(money));}

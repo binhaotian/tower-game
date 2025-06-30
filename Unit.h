@@ -7,8 +7,10 @@
 class Unit: public Entity{
 protected:
     int g_i, g_j; // grid pos
-    int maxHP; 
-    HealthBar* hb;
+    int maxHP; HealthBar *hb;
+    // 词缀
+    vector<string> prefix;
+    QGraphicsTextItem* ptext;
 public:
     Unit(Scene* parent, int HP=100);
     ~Unit();
@@ -17,6 +19,7 @@ public:
     void setgPos(int i,int j);
 
     void updateFollows();
+    void updateText();
 
     int getHealth();
     void incHealth(int x);

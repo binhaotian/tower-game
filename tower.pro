@@ -13,8 +13,8 @@ SOURCES += \
     Map.cpp\
     Scene.cpp\
     Bar.cpp\
-    Bullet.cpp\
     Entity.cpp\
+    Bullet.cpp\
     Follower.cpp\
     HealthBar.cpp\
     Unit.cpp\
@@ -28,8 +28,8 @@ HEADERS += \
     Map.h\
     Scene.h\
     Bar.h\
-    Bullet.h\
     Entity.h\
+    Bullet.h\
     Follower.h\
     HealthBar.h\
     Unit.h\

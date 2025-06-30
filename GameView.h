@@ -2,14 +2,14 @@
 #include "Base.h"
 #include "Map.h"
 #include "Scene.h"
+#include "Bar.h"
 #include "Unit.h"
 #include "Enemy.h"
 #include "Tower.h"
-#include "Bar.h"
 
 class GameView: public QGraphicsView{
     Scene* scene;
-    QTimer* tick; int tc=0; bool stop = 0;
+    QTimer* tick; int tc=0; bool stop=0;
     Bar* bar;
 public:
     GameView(QWidget* parent);

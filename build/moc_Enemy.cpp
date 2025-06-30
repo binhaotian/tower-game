@@ -38,9 +38,9 @@ struct qt_meta_tag_ZN5EnemyE_t {};
 #ifdef QT_MOC_HAS_STRINGDATA
 static constexpr auto qt_meta_stringdata_ZN5EnemyE = QtMocHelpers::stringData(
     "Enemy",
-    "Died",
+    "End",
     "",
-    "End"
+    "Died"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -79,9 +79,9 @@ Q_CONSTINIT const QMetaObject Enemy::staticMetaObject = { {
     qt_incomplete_metaTypeArray<qt_meta_tag_ZN5EnemyE_t,
         // Q_OBJECT / Q_GADGET
         QtPrivate::TypeAndForceComplete<Enemy, std::true_type>,
-        // method 'Died'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'End'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'Died'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -92,8 +92,8 @@ void Enemy::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void 
     auto *_t = static_cast<Enemy *>(_o);
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
-        case 0: _t->Died(); break;
-        case 1: _t->End(); break;
+        case 0: _t->End(); break;
+        case 1: _t->Died(); break;
         default: ;
         }
     }
@@ -101,14 +101,14 @@ void Enemy::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void 
         int *result = reinterpret_cast<int *>(_a[0]);
         {
             using _q_method_type = void (Enemy::*)();
-            if (_q_method_type _q_method = &Enemy::Died; *reinterpret_cast<_q_method_type *>(_a[1]) == _q_method) {
+            if (_q_method_type _q_method = &Enemy::End; *reinterpret_cast<_q_method_type *>(_a[1]) == _q_method) {
                 *result = 0;
                 return;
             }
         }
         {
             using _q_method_type = void (Enemy::*)();
-            if (_q_method_type _q_method = &Enemy::End; *reinterpret_cast<_q_method_type *>(_a[1]) == _q_method) {
+            if (_q_method_type _q_method = &Enemy::Died; *reinterpret_cast<_q_method_type *>(_a[1]) == _q_method) {
                 *result = 1;
                 return;
             }
@@ -148,13 +148,13 @@ int Enemy::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void Enemy::Died()
+void Enemy::End()
 {
     QMetaObject::activate(this, &staticMetaObject, 0, nullptr);
 }
 
 // SIGNAL 1
-void Enemy::End()
+void Enemy::Died()
 {
     QMetaObject::activate(this, &staticMetaObject, 1, nullptr);
 }

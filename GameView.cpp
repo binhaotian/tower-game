@@ -25,7 +25,19 @@ GameView::GameView(QWidget* parent): QGraphicsView(parent)
 GameView::~GameView(){
     scene->deleteLater();
 }
-
+void GameView::gameStop(){
+    stop = 1;
+}
+void GameView::Lose(){
+    gameStop();
+    QMessageBox::information(nullptr, "Game Over", "You Lose");
+    exit(0);
+}
+void GameView::Win(){
+    gameStop();
+    QMessageBox::information(nullptr, "You Win!", "You killed all enemies.");
+    exit(0);
+}
 void GameView::put(int i,int j,string type){
     // tower
     if (type=="meleeT"){
@@ -46,29 +58,66 @@ void GameView::put(int i,int j,string type){
             bar->decMoney(cost);
         }
     }
-
     // enemy
     if (type=="enemy"){
         if (scene->gridWho(i,j) != nullptr) return;
         Enemy *e = new Enemy(scene, i, j);
+        if (randI(1,100)<=35) e->addPrefix("Quick");
+        if (randI(1,100)<=35) e->addPrefix("Flash");
 
-        connect(e, &Enemy::Died, [this]()->void {this->bar->addMoney(15);});
         connect(e, &Enemy::End, this, &GameView::Lose);
+        connect(e, &Enemy::Died, [this]()->void {this->bar->addMoney(15);});
     }
-}
-
-void GameView::gameStop(){
-    stop = 1;
-}
-void GameView::Lose(){
-    gameStop();
-    QMessageBox::information(nullptr, "Game Over", "You Lose");
-    exit(0);
-}
-void GameView::Win(){
-    gameStop();
-    QMessageBox::information(nullptr, "You Win!", "You killed all enemies.");
-    exit(0);
+    // prefix
+    if (type=="Violent"){
+        int cost = 15;
+        Entity* who = scene->gridWho(i,j);
+        meleeT* t = dynamic_cast<meleeT*>(who);
+        if (t) {
+            if (bar->getMoney()>=cost){
+                t->addPrefix("Violent");
+                bar->decMoney(cost);
+            }
+        }
+    }
+    if (type=="Icy"){
+        int cost = 15;
+        Entity* who = scene->gridWho(i,j);
+        meleeT* t = dynamic_cast<meleeT*>(who);
+        if (t) {
+            if (bar->getMoney()>=cost){
+                t->addPrefix("Icy");
+                bar->decMoney(cost);
+            }
+        }
+    }
+    if (type=="Aoe"){
+        int cost = 15;
+        Entity* who = scene->gridWho(i,j);
+        meleeT* t = dynamic_cast<meleeT*>(who);
+        if (t) {
+            if (bar->getMoney()>=cost){
+                t->addPrefix("Aoe");
+                bar->decMoney(cost);
+            }
+        }
+    }
+    if (type=="Bleeding"){
+        int cost = 15;
+        Entity* who = scene->gridWho(i,j);
+        rangeT* t = dynamic_cast<rangeT*>(who);
+        if (t) {
+            if (bar->getMoney()>=cost){
+                t->addPrefix("Bleeding");
+                bar->decMoney(cost);
+            }
+        }
+    }
+    if (type=="Remove"){
+        Entity* who = scene->gridWho(i,j);
+        Tower* t = dynamic_cast<Tower*>(who);
+        if (t) {t->removePrefix();}
+    }
 }
 void GameView::gameMove(){
     if (stop) return;
@@ -81,28 +130,29 @@ void GameView::gameMove(){
 
     for(auto e:enL) {
         e->gridMove();
+        puts("move enemy (and attack)");
     }
 
     int turns = 40;
-    int P_enemy = 45;
-    if ((tc<turns && randI(1,100)<=P_enemy) || tc==1 || tc==turns){
+    if ((tc<turns && randI(1,100)<=45) || tc==1 || tc==turns){
         vector<pii> stpos = scene->startpos();
         pii e_pos = randPick(stpos);
         printf("new enemy pos: %d,%d\n",e_pos.first,e_pos.second);
         put(e_pos.first, e_pos.second, "enemy");
     }
 
-    for(auto t:twL){
-        meleeT *mt = dynamic_cast<meleeT*>(t);
-        if (mt){
+    for(auto t:twL) {
+        meleeT* mt;
+        if (mt=dynamic_cast<meleeT*>(t)){
             mt->attack();
         }
 
-        rangeT *rt = dynamic_cast<rangeT*>(t);
-        if (rt){
+        rangeT* rt;
+        if (rt=dynamic_cast<rangeT*>(t)){
             rt->attack();
         }
     }
+
 
     if (tc>turns && enL.size()==0){
         Win();
@@ -112,10 +162,8 @@ void GameView::mousePressEvent(QMouseEvent* event) {
     if (event->button() == Qt::LeftButton) {
         QPointF pos = mapToScene(event->pos());
         pii gridpos = scene->whichGrid(pos.x(),pos.y());
-        int i = gridpos.first, j = gridpos.second;
-        if (i>0 && j>0) {
-            put(i, j, bar->cur);
-        }
+        int i=gridpos.first, j=gridpos.second;
+        if (i>0 && j>0) put(i,j,bar->cur);
     }
 
     QGraphicsView::mousePressEvent(event);

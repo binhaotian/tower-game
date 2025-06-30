@@ -3,7 +3,7 @@
         <file>enemy.png</file>
         <file>tower.png</file>
         <file>cannon.png</file>
-        <file>bullet.png</file>
         <file>picker.png</file>
+        <file>bullet.png</file>
     </qresource>
 </RCC>
