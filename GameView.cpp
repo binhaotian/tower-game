@@ -15,6 +15,8 @@ GameView::GameView(QWidget* parent): QGraphicsView(parent)
 
     scene = new Scene();
     this->setScene(scene);
+
+    bar = new Bar(scene);
     
     tick = new QTimer(this);
     tick->start(1000);
@@ -28,20 +30,49 @@ void GameView::put(int i,int j,string type){
     // tower
     if (type=="meleeT"){
         if (scene->gridWho(i,j) != nullptr) return;
-        meleeT *mt = new meleeT(scene, i, j);
+        int cost = 25;
+
+        if (bar->getMoney()>=cost){
+            meleeT *mt = new meleeT(scene, i, j);
+            bar->decMoney(cost);
+        }
     }
     if (type=="rangeT"){
         if (scene->gridWho(i,j) != nullptr) return;
-        rangeT *mt = new rangeT(scene, i, j);
+        int cost=25; 
+
+        if (bar->getMoney()>=cost){
+            rangeT *rt = new rangeT(scene, i, j);
+            bar->decMoney(cost);
+        }
     }
 
     // enemy
     if (type=="enemy"){
         if (scene->gridWho(i,j) != nullptr) return;
         Enemy *e = new Enemy(scene, i, j);
+
+        connect(e, &Enemy::Died, [this]()->void {this->bar->addMoney(15);});
+        connect(e, &Enemy::End, this, &GameView::Lose);
     }
 }
+
+void GameView::gameStop(){
+    stop = 1;
+}
+void GameView::Lose(){
+    gameStop();
+    QMessageBox::information(nullptr, "Game Over", "You Lose");
+    exit(0);
+}
+void GameView::Win(){
+    gameStop();
+    QMessageBox::information(nullptr, "You Win!", "You killed all enemies.");
+    exit(0);
+}
 void GameView::gameMove(){
+    if (stop) return;
+
     puts("one tick");
     ++tc;
 
@@ -53,7 +84,8 @@ void GameView::gameMove(){
     }
 
     int turns = 40;
-    if ((tc<turns && randI(1,100)<=45) || tc==1 || tc==turns){
+    int P_enemy = 45;
+    if ((tc<turns && randI(1,100)<=P_enemy) || tc==1 || tc==turns){
         vector<pii> stpos = scene->startpos();
         pii e_pos = randPick(stpos);
         printf("new enemy pos: %d,%d\n",e_pos.first,e_pos.second);
@@ -71,6 +103,10 @@ void GameView::gameMove(){
             rt->attack();
         }
     }
+
+    if (tc>turns && enL.size()==0){
+        Win();
+    }
 }
 void GameView::mousePressEvent(QMouseEvent* event) {
     if (event->button() == Qt::LeftButton) {
@@ -78,8 +114,7 @@ void GameView::mousePressEvent(QMouseEvent* event) {
         pii gridpos = scene->whichGrid(pos.x(),pos.y());
         int i = gridpos.first, j = gridpos.second;
         if (i>0 && j>0) {
-            // put(i, j, "meleeT");
-            put(i, j, "rangeT");
+            put(i, j, bar->cur);
         }
     }
 

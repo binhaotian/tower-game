@@ -11,4 +11,7 @@ public:
     void attack(Tower* t);
     void gridMove();
     void goDie() override;
+signals:
+    void Died();
+    void End();
 };

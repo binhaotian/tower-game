@@ -15,6 +15,7 @@ public:
 
 class meleeT: public Tower{
     int damage = 20;
+    int HP = 180;
 public:
     meleeT(Scene* parent, int i, int j);
     ~meleeT();

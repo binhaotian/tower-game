@@ -4,5 +4,6 @@
         <file>tower.png</file>
         <file>cannon.png</file>
         <file>bullet.png</file>
+        <file>picker.png</file>
     </qresource>
 </RCC>

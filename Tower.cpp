@@ -22,6 +22,7 @@ Enemy* Tower::NearEnemy(){
 
 meleeT::meleeT(Scene* parent, int i, int j): Tower(parent, i, j) {
     setPic(":/tower.png"); show();
+    hb->setMaxHealth(HP); hb->setHealth(HP);
 }
 meleeT::~meleeT(){}
 void meleeT::attack(){

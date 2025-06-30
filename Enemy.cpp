@@ -11,6 +11,7 @@ Enemy::~Enemy(){
 
 }
 void Enemy::goDie(){
+    emit Died();
     this->deleteLater();
 }
 
@@ -34,5 +35,9 @@ void Enemy::gridMove(){
     else{
         g_i+=di; g_j+=dj; moveBy(dx, dy);
         updateFollows();
+    }
+
+    if (g_j<1){
+        emit End();
     }
 }

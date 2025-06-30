@@ -12,6 +12,7 @@ SOURCES += \
     Base.cpp\
     Map.cpp\
     Scene.cpp\
+    Bar.cpp\
     Bullet.cpp\
     Entity.cpp\
     Follower.cpp\
@@ -26,6 +27,7 @@ HEADERS += \
     Base.h\
     Map.h\
     Scene.h\
+    Bar.h\
     Bullet.h\
     Entity.h\
     Follower.h\
